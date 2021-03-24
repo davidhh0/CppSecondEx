@@ -38,7 +38,7 @@ namespace ariel {
         this->isThereChar.resize(numberOfChangeDim * ROW);
 		}
 	
-        void Board::post(unsigned int row, unsigned int col, Direction d, string str) {
+        void Board::post(unsigned int row, unsigned int col, Direction d, const string &str) {
         checkThrow(row,col,str.size());
 
         if ((d == Direction::Horizontal && col+str.size()>this->matrix[0].size())

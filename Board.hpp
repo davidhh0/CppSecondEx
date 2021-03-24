@@ -10,7 +10,7 @@ namespace ariel{
 class Board{
 	public:
 		Board();
-		void post(unsigned int,unsigned int,Direction,const string str);
+		void post(unsigned int,unsigned int,Direction,const string &str);
 		string read(unsigned int row,unsigned int col,Direction d,unsigned int length);
         void show();
 
