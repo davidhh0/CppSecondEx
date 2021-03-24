@@ -10,22 +10,22 @@ namespace ariel{
 class Board{
 	public:
 		Board();
-		void post(int,int,Direction,const string str);
-		string read(int row,int col,Direction d,int length);
+		void post(unsigned int,unsigned int,Direction,const string str);
+		string read(unsigned int row,unsigned int col,Direction d,unsigned int length);
         void show();
 
 	private:
         vector<vector<char>> matrix;
-        int numberOfChangeDim=1;
+        unsigned int numberOfChangeDim=1;
         vector<vector<int>> biggestStringInRow;
         vector<bool> isThereChar;
 		
-        string readHorizontally(int row, int col, int howmany);
-        string readVertically(int row,int col,int howmany);
-        void insertHorizonially(int row,int col,string str);
-        void insertVertically(int row,int col,string str);
+        string readHorizontally(unsigned int row, unsigned int col, unsigned int howmany);
+        string readVertically(unsigned int row,unsigned int col,unsigned int howmany);
+        void insertHorizonially(unsigned int row,unsigned int col,string str);
+        void insertVertically(unsigned int row,unsigned int col,string str);
 	    void changeDim();
-        static void checkThrow(int row,int col,int length);
+        static void checkThrow(unsigned int row,unsigned int col,unsigned int length);
         
 		
     };
