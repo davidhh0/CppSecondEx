@@ -25,6 +25,13 @@ grade_command make -f Makefile tidy
 printf "### Score $i: $grade\n"
 total=$((total + grade))
 
+let "i=i+1"
+printf "\n\n### Check $i: valgrind should run without errors\n"
+grade_command make -f Makefile valgrind
+printf "### Score $i: $grade\n"
+total=$((total + grade))
+
+
 total=$((total / i))
 printf "\n\nGrade: $total\n\n"
 

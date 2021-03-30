@@ -17,9 +17,8 @@ class Board{
 		~Board();
 
 	private:
-        vector<vector<char>> matrix;
-        unsigned int numberOfChangeDim=1;
-		unsigned int indexOfTheBiggestStr=1;
+        vector<vector<char>> matrix; 
+	unsigned int indexOfTheBiggestStr=1;
         unsigned int biggestStringInRow=1;
         vector<bool> isThereChar;
 		

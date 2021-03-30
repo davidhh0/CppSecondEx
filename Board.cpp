@@ -10,10 +10,9 @@ using namespace std;
 using std::string;
 const int ROW = 200;
 const int COL = 200;
-const int stringSize=50;
 namespace ariel {
 		Board::~Board(){
-			
+
 		}
 		
 		ariel::Board::Board() {
@@ -23,13 +22,13 @@ namespace ariel {
                     this->matrix[i][j] = '_';
                 }
             }
-            numberOfChangeDim=1;
+
             isThereChar.resize(ROW);
         }
         
-		void Board::changeDim(unsigned int max) {
+	void Board::changeDim(unsigned int max) {
 		//cout<<"HI CHANGEDIM"<<endl;
-		numberOfChangeDim++;
+
         unsigned int PrevRowCount = this->matrix.size();
         unsigned int PrevColCount = this->matrix[0].size();
         unsigned int newRowCount = max;
@@ -41,25 +40,27 @@ namespace ariel {
         }
         for(unsigned int i=0;i<max;i++){
             for(unsigned int j=PrevColCount;j<max;j++){
-                this->matrix[i][j] = '_';
+				//this->matrix.at(i).insert(this->matrix[i].begin()+j,'_');
+                //this->matrix[i][j] = '_';
             }
         }
         for(unsigned int i=PrevRowCount;i<max;i++){
             for(unsigned int j=0;j<max;j++){
-                this->matrix[i][j] = '_';
+				//this->matrix.at(i).insert(this->matrix[i].begin()+j,'_');
+                //this->matrix[i][j] = '_';
             }
         }
         
-        this->isThereChar.resize(numberOfChangeDim * ROW);
-		}
+        this->isThereChar.resize(max);
+	}
 	
         void Board::post(unsigned int row, unsigned int col, Direction d, const string &str) {
         checkThrow(row,col,str.size());
         if(str.empty()){
             return;
         }
-        while ((d == Direction::Horizontal && col+str.size()>this->matrix[0].size())
-            || (d==Direction::Vertical && row+str.size()> this->matrix.size())){
+        if ((col+str.size()>this->matrix[0].size())
+            || (row+str.size()> this->matrix.size())){
             changeDim(max(row,col)+str.size()+1);
         }
         
@@ -107,7 +108,12 @@ namespace ariel {
         string Board::readHorizontally(unsigned int row, unsigned int col, unsigned int howmany) {
             string str;
             for (unsigned int j = col; j < howmany + col; j++) {
-                str += this->matrix[row][j];
+                if(this->matrix[row][j] == 0){
+					str+='_';
+				}
+				else {
+					str += this->matrix[row][j];
+				}
             }
              return str;
         }
@@ -121,8 +127,12 @@ namespace ariel {
         string Board::readVertically(unsigned int row, unsigned int col, unsigned int howmany) {
             string str;
             for (unsigned int i = row; i < row + howmany; i++) {
-                str += this->matrix[i][col];
-                //str += '\n';
+                if(this->matrix[i][col] == 0){
+					str+='_';
+				}
+				else {
+					str += this->matrix[i][col];
+				}
             }
             return str;
         }

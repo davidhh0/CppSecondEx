@@ -9,7 +9,7 @@
 
 using namespace ariel;
 using namespace std;
-Board* board = new Board;
+Board* board;
 /*
 	READ from the board -> int row , int col , Direction , int length
 	POST to the board   -> int row , int col , Direction , string str
