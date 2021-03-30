@@ -19,7 +19,7 @@ TEST_CASE("Init value"){
 	string str_hor,str_ver;
 	for(int i=0;i<200;i++){
 		 str_hor+='_';
-		 str_ver+="_\n";
+		// str_ver+="_\n";
 	}
 	string check_hor,check_ver;
 	check_hor=board->read(0,0,Direction::Horizontal,200);
@@ -70,12 +70,12 @@ TEST_CASE("Change dim"){
 	CHECK(board->read(250,250,Direction::Vertical,4) == string("G\n_\n_\n_\n"));
 	CHECK(board->read(250,250,Direction::Horizontal,4) == string("Game"));
 	CHECK(board->read(300,300,Direction::Horizontal,5) == string("_____"));
-	CHECK(board->read(300,300,Direction::Vertical,5) == string("_\n_\n_\n_\n_\n"));
+	CHECK(board->read(300,300,Direction::Vertical,5) == string("_____"));
 	//Post after post after redim
 	board->post(250,254,Direction::Horizontal,"_Over");
 	//cout<<board->read(250,250,Direction::Horizontal,4);
 	CHECK(board->read(250,250,Direction::Horizontal,9) == string("Game_Over"));
-	CHECK(board->read(250,250,Direction::Vertical,5) == string("G\n_\n_\n_\n_\n"));
+	CHECK(board->read(250,250,Direction::Vertical,5) == string("G____"));
 
 	//Post over post after redim
 	board->post(250,255,Direction::Horizontal,"DavidHarush");

@@ -5,13 +5,17 @@
 #include <vector>
 #include "Direction.hpp"
 #include "Board.hpp"
+#include <array>
 using namespace std;
 using std::string;
-const unsigned int ROW = 200;
-const unsigned int COL = 200;
-const unsigned int stringSize=50;
+const int ROW = 200;
+const int COL = 200;
+const int stringSize=50;
 namespace ariel {
-
+		Board::~Board(){
+			
+		}
+		
 		ariel::Board::Board() {
             this->matrix.resize(ROW, vector<char>(COL));
             for(unsigned int i=0;i<ROW;i++){
@@ -20,30 +24,48 @@ namespace ariel {
                 }
             }
             numberOfChangeDim=1;
-            biggestStringInRow.resize(ROW, vector<int>(stringSize, 0));
             isThereChar.resize(ROW);
         }
-		void Board::changeDim() {
+        
+		void Board::changeDim(unsigned int max) {
+		//cout<<"HI CHANGEDIM"<<endl;
 		numberOfChangeDim++;
-        this->matrix.resize(numberOfChangeDim * ROW);
-        for(unsigned int i=0;i<numberOfChangeDim*ROW;i++){
-            this->matrix[i].resize(numberOfChangeDim*COL);
+        unsigned int PrevRowCount = this->matrix.size();
+        unsigned int PrevColCount = this->matrix[0].size();
+        unsigned int newRowCount = max;
+        unsigned int newColCount = max;
+
+        this->matrix.resize(max);
+        for(unsigned int i=0;i<max;i++){
+            this->matrix[i].resize(max);
         }
-        for(unsigned int i=(numberOfChangeDim-1) * ROW;i<numberOfChangeDim * COL;i++){
-            for(unsigned int j=(numberOfChangeDim-1)*COL ; j< numberOfChangeDim*COL;j++){
-                this->matrix[i][j]='_';
+        for(unsigned int i=0;i<max;i++){
+            for(unsigned int j=PrevColCount;j<max;j++){
+                this->matrix[i][j] = '_';
             }
         }
-        this->biggestStringInRow.resize(numberOfChangeDim * ROW);
+        for(unsigned int i=PrevRowCount;i<max;i++){
+            for(unsigned int j=0;j<max;j++){
+                this->matrix[i][j] = '_';
+            }
+        }
+        
         this->isThereChar.resize(numberOfChangeDim * ROW);
 		}
 	
         void Board::post(unsigned int row, unsigned int col, Direction d, const string &str) {
         checkThrow(row,col,str.size());
-
-        if ((d == Direction::Horizontal && col+str.size()>this->matrix[0].size())
+        if(str.empty()){
+            return;
+        }
+        while ((d == Direction::Horizontal && col+str.size()>this->matrix[0].size())
             || (d==Direction::Vertical && row+str.size()> this->matrix.size())){
-            changeDim();
+            changeDim(max(row,col)+str.size()+1);
+        }
+        
+        if(this->biggestStringInRow<str.size()){
+            this->biggestStringInRow = str.size();
+            this->indexOfTheBiggestStr = col;    
         }
         if (d == Direction::Horizontal) {
             insertHorizonially(row, col, str);
@@ -55,7 +77,7 @@ namespace ariel {
         string Board::read(unsigned int row, unsigned int col, Direction d, unsigned int length) {
             checkThrow(row,col,length);
             if (row >= this->matrix.size() || col >= this->matrix[0].size()) {
-            changeDim();
+                changeDim(max(row,col)+length+1);
             }   
             if (d == Direction::Horizontal) {
                 return readHorizontally(row, col, length);
@@ -63,8 +85,24 @@ namespace ariel {
             return readVertically(row, col, length);
             
         }
+        
         void Board::show(){
-            
+            string str;
+            unsigned int index = this->indexOfTheBiggestStr;
+            unsigned int max = this->biggestStringInRow;
+            for(unsigned int i=0;i<this->matrix.size();i++){
+                
+                if(this->isThereChar[i]){
+                    str+=to_string(i);
+                    str+=":__";
+                    for (unsigned int j = index; j < max+index; j++)
+                    {
+                        str+=this->matrix[i][j];
+                    }
+                    str+="__\n";
+                }
+            }
+            cout<<str<<endl;
         }
         string Board::readHorizontally(unsigned int row, unsigned int col, unsigned int howmany) {
             string str;
@@ -84,7 +122,7 @@ namespace ariel {
             string str;
             for (unsigned int i = row; i < row + howmany; i++) {
                 str += this->matrix[i][col];
-                str += '\n';
+                //str += '\n';
             }
             return str;
         }
@@ -103,8 +141,11 @@ namespace ariel {
             this->isThereChar[row] = true;
             for (unsigned int i = row; i < str.size() + row; i++) {
                 this->matrix[i][col] = str[stringIndex++];
+                this->isThereChar[i]=true;
             }
 
         }
+		
+
 		
 };

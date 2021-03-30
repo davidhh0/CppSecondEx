@@ -17,7 +17,7 @@ int main() {
 	Board* board = new Board;
 	board->post(0,5,Direction::Horizontal,"David Harush");
 	cout<<board->read(0,0,Direction::Horizontal,22)<<endl;
-	
+	delete board;
 
 	return 0;
 }
