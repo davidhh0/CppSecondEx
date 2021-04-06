@@ -10,15 +10,17 @@ namespace ariel{
 
 class Board{
 	public:
-		Board();
-		void post(unsigned int,unsigned int,Direction,const string &str);
-		string read(unsigned int row,unsigned int col,Direction d,unsigned int length);
+	Board();
+	void post(unsigned int,unsigned int,Direction,const string &str);
+	string read(unsigned int row,unsigned int col,Direction d,unsigned int length);
         void show();
-		~Board();
+	~Board();
 
 	private:
         vector<vector<char>> matrix; 
+        // indexOfTheBiggestStr will hold the INDEX of the biggest string in the matrix for a nicer show() performance
 	unsigned int indexOfTheBiggestStr=1;
+	// biggestStringInRow will hold the length of the biggest string
         unsigned int biggestStringInRow=1;
         vector<bool> isThereChar;
 		
@@ -26,7 +28,7 @@ class Board{
         string readVertically(unsigned int row,unsigned int col,unsigned int howmany);
         void insertHorizonially(unsigned int row,unsigned int col,string str);
         void insertVertically(unsigned int row,unsigned int col,string str);
-	    void changeDim(unsigned int);
+	void changeDim(unsigned int);
         static void checkThrow(unsigned int row,unsigned int col,unsigned int length);
         
 

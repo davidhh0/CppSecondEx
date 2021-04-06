@@ -16,6 +16,7 @@ int main() {
 	//board->post(0,5,Direction::Horizontal,"David Harush");
 	cout<<board.read(0,0,Direction::Horizontal,22)<<endl;
 	//board->post(0,0,Direction::Horizontal,"David");
+	board.show();
 
 	return 0;
 }
