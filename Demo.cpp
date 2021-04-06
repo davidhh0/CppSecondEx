@@ -1,23 +1,21 @@
-/**
- * Demo program for snowman exercise.
- * 
- * Author: Erel Segal-Halevi
- * Since : 2021-02
- */
- #include "Direction.hpp"
-#include <iostream>
+#include <cmath>
+#include <array>
 #include "Board.hpp"
-#include <stdexcept>
-#include <string>
 using namespace ariel;
+
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+#include <string>
 using namespace std;
 
 int main() {
-	cout<<"Welcome to my PostBoard program!!"<<endl;
-	//Board* board = new Board;
+	cout<<"Welcome to my PostBoard progRam!!"<<endl;
+	ariel::Board board;
+	board.post(0,5,Direction::Horizontal,"David Harush");
 	//board->post(0,5,Direction::Horizontal,"David Harush");
-	//cout<<board->read(0,0,Direction::Horizontal,22)<<endl;
-	//delete board;
+	cout<<board.read(0,0,Direction::Horizontal,22)<<endl;
+	//board->post(0,0,Direction::Horizontal,"David");
 
 	return 0;
 }

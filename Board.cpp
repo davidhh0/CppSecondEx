@@ -108,12 +108,13 @@ namespace ariel {
         string Board::readHorizontally(unsigned int row, unsigned int col, unsigned int howmany) {
             string str;
             for (unsigned int j = col; j < howmany + col; j++) {
-                if(this->matrix[row][j] == 0){
-					str+='_';
-				}
-				else {
-					str += this->matrix[row][j];
-				}
+                str+=this->matrix[row][j] == 0?'_':this->matrix[row][j];
+                //if(this->matrix[row][j] == 0){
+		//	str+='_';
+		//}
+		//else {
+		//	str += this->matrix[row][j];
+		//}
             }
              return str;
         }
@@ -127,12 +128,13 @@ namespace ariel {
         string Board::readVertically(unsigned int row, unsigned int col, unsigned int howmany) {
             string str;
             for (unsigned int i = row; i < row + howmany; i++) {
-                if(this->matrix[i][col] == 0){
-					str+='_';
-				}
-				else {
-					str += this->matrix[i][col];
-				}
+                str+=this->matrix[i][col] == 0?'_':this->matrix[i][col];
+              //  if(this->matrix[i][col] == 0){
+				//	str+='_';
+				//}
+				//else {
+				//	str += this->matrix[i][col];
+				//}
             }
             return str;
         }
