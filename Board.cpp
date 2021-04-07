@@ -11,12 +11,9 @@ using std::string;
 const int ROW = 200;
 const int COL = 200;
 namespace ariel {
-		// Basic Destructor
-	Board::~Board(){
 
-	}
 	// Simple constructor - init the matrix to 200x200 and the isThereChar
-	ariel::Board::Board() {
+	Board::Board() {
             this->matrix.resize(ROW, vector<char>(COL));
             for(unsigned int i=0;i<ROW;i++){
                 for(unsigned int j=0;j<COL;j++){
